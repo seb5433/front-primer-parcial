@@ -1,0 +1,8 @@
+.contenedor { padding: 1rem; }
+.barra { display: flex; gap: .5rem; margin-bottom: .5rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border: 1px solid #ccc; padding: .5rem; }
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.3); display: flex; align-items: center; justify-content: center; }
+.modal-content { background: #fff; padding: 1rem; border-radius: .25rem; min-width: 300px; }
+.acciones { display:flex; gap:.5rem; margin-top: .5rem }
+

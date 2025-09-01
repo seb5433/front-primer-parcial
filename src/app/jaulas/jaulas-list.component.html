@@ -1,0 +1,49 @@
+<div class="contenedor">
+  <h2>Administración de Jaulas</h2>
+  <div class="barra">
+    <input [(ngModel)]="filtro" placeholder="Filtrar por nombre" />
+    <button (click)="iniciarNuevo()">Nuevo</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>En uso</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let j of jaulas">
+        <td>{{ j.idJaula }}</td>
+        <td>{{ j.nombre }}</td>
+        <td>{{ j.enUso }}</td>
+        <td>
+          <button (click)="editar(j)">Editar</button>
+          <button (click)="eliminar(j.idJaula)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal" *ngIf="editando as e">
+    <div class="modal-content">
+      <h3>{{ e.idJaula ? 'Editar' : 'Nueva' }} Jaula</h3>
+      <label>Nombre:<br />
+        <input [(ngModel)]="e.nombre" />
+      </label>
+      <label>En uso:<br />
+        <select [(ngModel)]="e.enUso">
+          <option value="N">N</option>
+          <option value="S">S</option>
+        </select>
+      </label>
+      <div class="acciones">
+        <button (click)="guardar()">Guardar</button>
+        <button (click)="cancelar()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

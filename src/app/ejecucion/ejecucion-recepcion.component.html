@@ -1,0 +1,63 @@
+<div class="contenedor">
+  <h2>Ejecución de recepción de productos</h2>
+
+  <label>Fecha:&nbsp;
+    <input type="date" [(ngModel)]="fecha">
+  </label>
+
+  <table class="turnos">
+    <thead>
+      <tr>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Proveedor</th>
+        <th>Jaula</th>
+        <th>Recepción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let t of lista">
+        <tr>
+          <td>{{ t.horaInicioAgendamiento }}</td>
+          <td>{{ t.horaFinAgendamiento }}</td>
+          <td>{{ mapProveedores[t.idProveedor].nombre || '-' }}</td>
+          <td>{{ t.idJaula || '-' }}</td>
+          <td>
+            {{ t.horaInicioRecepcion || '-' }} - {{ t.horaFinRecepcion || '-' }}
+          </td>
+          <td class="acciones">
+            <button (click)="alternarDetalles(t.idTurno)">Detalles</button>
+            <ng-container *ngIf="!t.horaInicioRecepcion">
+              <select [(ngModel)]="jaulaSeleccionada[t.idTurno]">
+                <option [ngValue]="null">-- Jaula libre --</option>
+                <option *ngFor="let j of jaulasDisponibles" [value]="j.idJaula">{{ j.nombre }} ({{ j.idJaula }})</option>
+              </select>
+              <button (click)="iniciar(t)">Iniciar recepción</button>
+            </ng-container>
+            <button *ngIf="t.horaInicioRecepcion && !t.horaFinRecepcion" (click)="finalizar(t)">Finalizar recepción</button>
+          </td>
+        </tr>
+        <tr *ngIf="mostrarDetalles[t.idTurno]">
+          <td colspan="6">
+            <table class="detalles">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let d of t.detalles">
+                  <td>{{ mapProductos[d.idProducto].nombre || d.idProducto }}</td>
+                  <td>{{ d.cantidad }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
