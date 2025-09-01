@@ -1,6 +1,1 @@
-.contenedor { padding: 1rem; }
-.grid { display:grid; grid-template-columns: repeat(4, minmax(200px,1fr)); gap: .5rem; margin-bottom: .75rem; }
-table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
-th, td { border: 1px solid #ccc; padding: .5rem; }
-.acciones { margin-top: .75rem; }
-
+/* Bootstrap classes handle layout and table styling */

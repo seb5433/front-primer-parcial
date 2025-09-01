@@ -9,13 +9,25 @@ import { JaulaService } from '../services/jaula.service';
   standalone: false
 })
 export class JaulasListComponent {
-  filtro = '';
+  private _filtro = '';
   editando: Jaula | null = null;
+  jaulas: Jaula[] = [];
 
-  constructor(private svc: JaulaService) {}
+  constructor(private svc: JaulaService) {
+    this.actualizarLista();
+  }
 
-  get jaulas(): Jaula[] {
-    return this.svc.listar(this.filtro);
+  get filtro(): string {
+    return this._filtro;
+  }
+
+  set filtro(value: string) {
+    this._filtro = value;
+    this.actualizarLista();
+  }
+
+  private actualizarLista() {
+    this.jaulas = this.svc.listar(this._filtro);
   }
 
   iniciarNuevo() {
@@ -36,11 +48,13 @@ export class JaulasListComponent {
     if (!nombre?.trim()) return;
     this.svc.guardar({ idJaula: idJaula || undefined, nombre: nombre.trim(), enUso });
     this.editando = null;
+    this.actualizarLista();
   }
 
   eliminar(id: number) {
     if (confirm('¿Eliminar jaula?')) {
       this.svc.eliminar(id);
+      this.actualizarLista();
     }
   }
 }

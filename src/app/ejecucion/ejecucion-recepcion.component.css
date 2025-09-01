@@ -1,7 +1,1 @@
-.contenedor { padding: 1rem; }
-table { width: 100%; border-collapse: collapse; margin-top: .75rem; }
-th, td { border: 1px solid #ccc; padding: .5rem; }
-.acciones { display: flex; gap: .5rem; align-items: center; }
-.detalles { width: 100%; border-collapse: collapse; }
-.detalles th, .detalles td { border: 1px solid #ddd; padding: .25rem .5rem; }
-
+/* Bootstrap classes handle layout and table styling */

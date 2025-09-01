@@ -1,43 +1,32 @@
 <!-- Navigation and main content -->
-<style>
-  .navbar {
-    background-color: #f8f9fa;
-    padding: 1rem;
-    display: flex;
-    gap: 1rem;
-    border-bottom: 1px solid #dee2e6;
-  }
-
-  .navbar a {
-    text-decoration: none;
-    color: #495057;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s;
-  }
-
-  .navbar a:hover {
-    background-color: #e9ecef;
-  }
-
-  .navbar a.active {
-    background-color: #007bff;
-    color: white;
-  }
-
-  .container {
-    padding: 2rem;
-  }
-</style>
-
-<nav class="navbar">
-  <a routerLink="/proveedores" routerLinkActive="active">Proveedores</a>
-  <a routerLink="/productos" routerLinkActive="active">Productos</a>
-  <a routerLink="/jaulas" routerLinkActive="active">Jaulas</a>
-  <a routerLink="/reservas/nuevo" routerLinkActive="active">Nueva reserva</a>
-  <a routerLink="/ejecucion" routerLinkActive="active">Ejecución</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" routerLink="/">Recepciones</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" routerLink="/proveedores" routerLinkActive="active">Proveedores</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/productos" routerLinkActive="active">Productos</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/jaulas" routerLinkActive="active">Jaulas</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/reservas/nuevo" routerLinkActive="active">Nueva reserva</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/ejecucion" routerLinkActive="active">Ejecución</a></li>
+      </ul>
+    </div>
+  </div>
+  
 </nav>
 
-<div class="container">
+<div class="container py-4">
   <router-outlet></router-outlet>
+  
 </div>

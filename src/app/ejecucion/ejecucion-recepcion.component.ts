@@ -15,28 +15,30 @@ export class EjecucionRecepcionComponent {
   fecha = new Date().toISOString().slice(0, 10);
   mostrarDetalles: Record<number, boolean> = {};
   jaulaSeleccionada: Record<number, number | null> = {};
+  
+  lista: Turno[] = [];
+  mapProveedores: Record<number, Proveedor> = {};
+  mapProductos: Record<number, Producto> = {};
+  jaulasDisponibles: Jaula[] = [];
 
   constructor(
     private turnos: TurnoService,
     private proveedores: ProveedorService,
     private productos: ProductoService,
     private jaulas: JaulaService,
-  ) {}
-
-  get lista(): Turno[] {
-    return this.turnos.listarPorFecha(this.fecha);
+  ) {
+    this.cargarDatos();
   }
 
-  get mapProveedores(): Record<number, Proveedor> {
-    return Object.fromEntries(this.proveedores.listar().map(p => [p.idProveedor, p]));
+  private cargarDatos() {
+    this.lista = this.turnos.listarPorFecha(this.fecha);
+    this.mapProveedores = Object.fromEntries(this.proveedores.listar().map(p => [p.idProveedor, p]));
+    this.mapProductos = Object.fromEntries(this.productos.listar().map(p => [p.idProducto, p]));
+    this.jaulasDisponibles = this.jaulas.disponibles();
   }
 
-  get mapProductos(): Record<number, Producto> {
-    return Object.fromEntries(this.productos.listar().map(p => [p.idProducto, p]));
-  }
-
-  get jaulasDisponibles(): Jaula[] {
-    return this.jaulas.disponibles();
+  onFechaChange() {
+    this.cargarDatos();
   }
 
   alternarDetalles(idTurno: number) {
@@ -51,10 +53,12 @@ export class EjecucionRecepcionComponent {
     }
     this.turnos.iniciarRecepcion(t.idTurno, idJ);
     this.jaulaSeleccionada[t.idTurno] = null;
+    this.cargarDatos();
   }
 
   finalizar(t: Turno) {
     this.turnos.finalizarRecepcion(t.idTurno);
+    this.cargarDatos();
   }
 }
 

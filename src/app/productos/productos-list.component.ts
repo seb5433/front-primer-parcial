@@ -9,13 +9,25 @@ import { ProductoService } from '../services/producto.service';
   standalone: false
 })
 export class ProductosListComponent {
-  filtro = '';
+  private _filtro = '';
   editando: Producto | null = null;
+  productos: Producto[] = [];
 
-  constructor(private svc: ProductoService) {}
+  constructor(private svc: ProductoService) {
+    this.actualizarLista();
+  }
 
-  get productos(): Producto[] {
-    return this.svc.listar(this.filtro);
+  get filtro(): string {
+    return this._filtro;
+  }
+
+  set filtro(value: string) {
+    this._filtro = value;
+    this.actualizarLista();
+  }
+
+  private actualizarLista() {
+    this.productos = this.svc.listar(this._filtro);
   }
 
   iniciarNuevo() {
@@ -36,11 +48,13 @@ export class ProductosListComponent {
     if (!nombre?.trim()) return;
     this.svc.guardar({ idProducto: idProducto || undefined, nombre: nombre.trim() });
     this.editando = null;
+    this.actualizarLista();
   }
 
   eliminar(id: number) {
     if (confirm('¿Eliminar producto?')) {
       this.svc.eliminar(id);
+      this.actualizarLista();
     }
   }
 }

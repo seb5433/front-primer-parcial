@@ -21,6 +21,7 @@ export class ReservaTurnoComponent {
   horas = HORAS_MEDIA_HORA;
 
   productosSel: ProductoSel[] = [];
+  listaProveedores: Proveedor[] = [];
 
   constructor(
     private turnos: TurnoService,
@@ -28,10 +29,7 @@ export class ReservaTurnoComponent {
     private productos: ProductoService,
   ) {
     this.recargarProductos();
-  }
-
-  get listaProveedores(): Proveedor[] {
-    return this.proveedores.listar();
+    this.listaProveedores = this.proveedores.listar();
   }
 
   recargarProductos() {

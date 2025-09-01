@@ -10,14 +10,26 @@ import { ProveedorService } from '../services/proveedor.service';
   standalone: false,
 })
 export class ProveedoresListComponent {
-  filtro = '';
+  private _filtro = '';
   editando: Proveedor | null = null;
   nuevoNombre = '';
+  proveedores: Proveedor[] = [];
 
-  constructor(private svc: ProveedorService) {}
+  constructor(private svc: ProveedorService) {
+    this.actualizarLista();
+  }
 
-  get proveedores(): Proveedor[] {
-    return this.svc.listar(this.filtro);
+  get filtro(): string {
+    return this._filtro;
+  }
+
+  set filtro(value: string) {
+    this._filtro = value;
+    this.actualizarLista();
+  }
+
+  private actualizarLista() {
+    this.proveedores = this.svc.listar(this._filtro);
   }
 
   iniciarNuevo() {
@@ -38,11 +50,13 @@ export class ProveedoresListComponent {
     if (!nombre?.trim()) return;
     this.svc.guardar({ idProveedor: idProveedor || undefined, nombre: nombre.trim() });
     this.editando = null;
+    this.actualizarLista();
   }
 
   eliminar(id: number) {
     if (confirm('¿Eliminar proveedor?')) {
       this.svc.eliminar(id);
+      this.actualizarLista();
     }
   }
 }

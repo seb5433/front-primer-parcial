@@ -1,52 +1,57 @@
-<div class="contenedor">
-  <h2>Reserva de turnos de recepción</h2>
+<div class="container">
+  <h2 class="h4">Reserva de turnos de recepción</h2>
 
-  <div class="grid">
-    <label>Fecha<br>
-      <input type="date" [(ngModel)]="fecha">
-    </label>
-    <label>Hora inicio agendamiento<br>
-      <select [(ngModel)]="horaInicioAgendamiento">
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-sm-6 col-md-3">
+      <label class="form-label">Fecha</label>
+      <input type="date" class="form-control" [(ngModel)]="fecha">
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+      <label class="form-label">Hora inicio agendamiento</label>
+      <select class="form-select" [(ngModel)]="horaInicioAgendamiento">
         <option *ngFor="let h of horas" [value]="h">{{ h }}</option>
       </select>
-    </label>
-    <label>Hora fin agendamiento<br>
-      <select [(ngModel)]="horaFinAgendamiento">
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+      <label class="form-label">Hora fin agendamiento</label>
+      <select class="form-select" [(ngModel)]="horaFinAgendamiento">
         <option *ngFor="let h of horas" [value]="h">{{ h }}</option>
       </select>
-    </label>
-    <label>Proveedor<br>
-      <select [(ngModel)]="idProveedor">
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+      <label class="form-label">Proveedor</label>
+      <select class="form-select" [(ngModel)]="idProveedor">
         <option [ngValue]="null">-- Seleccione --</option>
         <option *ngFor="let p of listaProveedores" [value]="p.idProveedor">{{ p.nombre }}</option>
       </select>
-    </label>
+    </div>
   </div>
 
-  <h3>Productos</h3>
-  <table>
-    <thead>
+  <h3 class="h5">Productos</h3>
+  <div class="table-responsive">
+  <table class="table table-sm table-striped align-middle">
+    <thead class="table-light">
       <tr>
-        <th></th>
+        <th style="width: 3rem;"></th>
         <th>Producto</th>
-        <th>Cantidad</th>
+        <th style="width: 10rem;">Cantidad</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let p of productosSel">
         <td>
-          <input type="checkbox" [checked]="p.seleccionado" (change)="alternarSeleccion(p)">
+          <input class="form-check-input" type="checkbox" [checked]="p.seleccionado" (change)="alternarSeleccion(p)">
         </td>
         <td>{{ p.nombre }}</td>
         <td>
-          <input type="number" min="0" [disabled]="!p.seleccionado" [(ngModel)]="p.cantidad" style="width: 6rem;">
+          <input class="form-control" type="number" min="0" [disabled]="!p.seleccionado" [(ngModel)]="p.cantidad" style="max-width: 8rem;">
         </td>
       </tr>
     </tbody>
   </table>
+  </div>
 
-  <div class="acciones">
-    <button (click)="guardar()">Registrar reserva</button>
+  <div class="mt-3">
+    <button class="btn btn-success" (click)="guardar()">Registrar reserva</button>
   </div>
 </div>
-
