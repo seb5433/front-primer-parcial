@@ -13,6 +13,7 @@
         <th>Inicio</th>
         <th>Fin</th>
         <th>Proveedor</th>
+        <th>Estado</th>
         <th>Jaula</th>
         <th>Recepción</th>
         <th class="text-end">Acciones</th>
@@ -24,7 +25,8 @@
           <td>{{ t.horaInicioAgendamiento }}</td>
           <td>{{ t.horaFinAgendamiento }}</td>
           <td>{{ mapProveedores[t.idProveedor].nombre || '-' }}</td>
-          <td>{{ t.idJaula || '-' }}</td>
+          <td>{{ getEstado(t) }}</td>
+          <td>{{ t.idJaula ? mapJaulas[t.idJaula]?.nombre : '-' }}</td>
           <td>
             {{ t.horaInicioRecepcion || '-' }} - {{ t.horaFinRecepcion || '-' }}
           </td>
@@ -43,7 +45,7 @@
           </td>
         </tr>
         <tr *ngIf="mostrarDetalles[t.idTurno]">
-          <td colspan="6">
+          <td colspan="7">
             <table class="table table-bordered table-sm mb-0">
               <thead class="table-light">
                 <tr>
